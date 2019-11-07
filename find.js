@@ -115,19 +115,27 @@ function find(timeout) {
     getUserIP(function (ip) {
         let ips = ip.toString().split(".");
         let ipBase = ips[0] + "." + ips[1] + "." + ips[2] + ".";
+
         findServers(6969, ipBase, 1, 255, 20, timeout, function (servers) {
+            document.getElementById("spinner").hidden = true;
+
             console.log(" " + servers);
             if (servers.length !== 0) {
-                let serverIp = '<a href="http://' + servers[0].match(ipRegx) + ':8080">Server Found!</a>';
+                let serverIp = '<a href="http://' + servers[0].match(ipRegx) + ':8080">Start!</a>';
+                document.getElementById("info").innerHTML = "Server found!";
                 document.getElementById("server").innerHTML = serverIp;
+                document.getElementById("results").hidden = false;
+                document.getElementById("results").style.animation = "pulse 1s cubic-bezier(0, 0.2, 0.8, 1) infinite"
             } else {
-                document.getElementById("server").innerHTML = "Could not find a server :(";
+                document.getElementById("info").innerHTML = "Could not find a server.</br>Are you connected to the correct network?";
+                document.getElementById("server").innerHTML = ":(";
+                document.getElementById("results").hidden = false;
             }
         });
     });
 }
 
-find(6000)
+find(6000);
 // var timeout = 1000;
 //
 // function loop() {
