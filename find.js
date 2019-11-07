@@ -127,7 +127,7 @@ function find(timeout) {
                 document.getElementById("results").hidden = false;
                 document.getElementById("results").style.animation = "pulse 1s cubic-bezier(0, 0.2, 0.8, 1) infinite"
             } else {
-                document.getElementById("info").innerHTML = "Could not find a server.</br>Are you connected to the correct network?";
+                document.getElementById("info").innerHTML = "Could not find a server.</br></br>Are you connected to the correct network?</br>Are you connected through a VPN?</br>Is the app running?";
                 document.getElementById("server").innerHTML = ":(";
                 document.getElementById("results").hidden = false;
             }
