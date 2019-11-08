@@ -6,7 +6,7 @@ console.log("Pls")
  * @param onNewIP {Function} listener function to expose the IP locally
  * @return undefined
  */
-function getUserIP(onNewIP) { //  onNewIp - your listener function for new IPs
+function getUserIP(onNewIP, onError) { //  onNewIp - your listener function for new IPs
     //compatibility for firefox and chrome
     var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
     var pc = new myPeerConnection({
@@ -35,6 +35,7 @@ function getUserIP(onNewIP) { //  onNewIp - your listener function for new IPs
 
         pc.setLocalDescription(sdp, noop, noop);
     }).catch(function (reason) {
+        onError(reason);
         // An error occurred, so handle the failure to connect
     });
 
@@ -132,6 +133,11 @@ function find(timeout) {
                 document.getElementById("results").hidden = false;
             }
         });
+    }, function (reason) {
+        console.log("Error occurred while trying to find IP " + reason);
+        document.getElementById("info").innerHTML = "Error occurred while trying to find IP. Please try again later";
+        document.getElementById("server").innerHTML = ":(";
+        document.getElementById("results").hidden = false;
     });
 }
 
